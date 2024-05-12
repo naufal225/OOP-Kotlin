@@ -1,1 +1,1 @@
-Untuk Latihan OOP Kotlin 
+Untuk Belajar Konsep OOP Pada Kotlin Dasar Dan Latihan Saja
