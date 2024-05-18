@@ -7,6 +7,9 @@ class Handphone(val brand: String)
 
 fun printObject(any: Any){ // karena semua kelas adalah turunan dari kelas Any, maka jika kita membuat function dengan parameter bertipe Any maka dapat menerima semua tipe data
     if(any is Laptop) {
+        //smart casts
+        //setelah terkonfirmasi any adalah Laptop
+        //maka any mempunyai properti yang dimiliki kelas Laptop
         println("Ini laptop " + any.brand)
     } else if(any is Handphone) {
         println("Ini Hp " + any.brand)
