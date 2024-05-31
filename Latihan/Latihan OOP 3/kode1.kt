@@ -69,6 +69,28 @@ class Library(
     fun deleteMember(member: Member) {
         Members.remove(member)
     }
+    
+    fun showBooks() {
+        var i: Int = 1
+        for(book in Books) {
+            println(i.toString() + " ${book.title} ")
+        }
+    }
+    
+    fun showMembers() {
+        var i: Int = 1
+        for(member in Members) {
+            println(i.toString() + " ${member.name}, ${member.address}")
+        }
+    }
+    
+    fun findLibraryBookByTitle(title: String): Book? {
+        return Books.find{it.title == title}
+    }
+    
+    fun findLibraryMemberByName(name: String): Member? {
+        return Members.find{it.name == name}
+    }
 }
 
 abstract class Transaction(
