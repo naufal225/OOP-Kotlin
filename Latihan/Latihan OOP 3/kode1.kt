@@ -1,56 +1,73 @@
-// Latihan OOP Kotlin
+// Latihan OOP
 
-class Book(val title: String, val author: String, val isbn: String) {
-    var avail: Boolean = true
+class Book(
+    var title: String,
+    var author: String,
+    var isbn: String
+) {
+    var avail = true
+    
     fun borrowBook() {
-        if(avail) {
+        if(this.avail) {
             avail = false
-            println("Sekarang Buku Dipinjam")
+            println("Transaksi Berhasil! Buku Sekarang Dipinjam")
         } else {
-            println("Buku Tidak Tersedia")
+            println("Buku Tidak Tersedia Sekarang")
         }
     }
+    
     fun returnBook() {
-        if(avail==false) {
-            avail = true
-            println("Buku Sudah Dikembalikan")
+        if(this.avail == false) {
+            this.avail = true
         }
     }
-    fun isAvail() {
-        if(avail) {
-            println("Buku Tersedia")
-        } else {
-            println("Buku Tidak Tersedia")
-        }
+    
+    fun editBook(title: String, isbn: String, author: String, avail: Boolean) {
+        this.title = title
+        this.author = author
+        this.isbn = isbn
+        this.author = author
     }
 }
 
-class Member(val name: String, val address: String) {
-    constructor(name: String) : this(name, "")
+class Member(
+    var name: String,
+    var address: String
+) {
     fun borrowBook(book: Book) {
         book.borrowBook()
     }
+    
     fun returnBook(book: Book) {
         book.returnBook()
     }
+    
+    fun editMember(name: String, address: String) {
+        this.name = name
+        this.address = address
+    } 
 }
 
-class Library(val name: String) {
+class Library(
+    var name: String
+) {
     private var Books = mutableListOf<Book>()
     private var Members = mutableListOf<Member>()
     
     fun addBook(book: Book) {
         Books.add(book)
-        println("${book.title} Sudah Ditambahkan")
     }
     
     fun addMember(member: Member) {
         Members.add(member)
-        println("${member.name} Sudah Ditambahkan")
     }
     
-    fun findBookByTitle(title: String): Book?{
-        return Books.find {it.title == title}
+    fun deleteBook(book: Book) {
+        Books.remove(book)
+    }
+    
+    fun deleteMember(member: Member) {
+        Members.remove(member)
     }
 }
 
@@ -62,32 +79,26 @@ abstract class Transaction(
     abstract fun execute()
 }
 
-class TransactionBorrow(transactionId: String, member: Member, book: Book) : Transaction(transactionId, member, book) {
+class TransactionBorrow(
+    transactionId: String,
+    member: Member,
+    book: Book
+) : Transaction(transactionId, member, book) {
     override fun execute() {
         member.borrowBook(book)
     }
 }
 
-class TransactionReturn(transactionId: String, member: Member, book: Book) : Transaction(transactionId, member, book) {
+class TransactionReturn(
+    transactionId: String,
+    member: Member,
+    book: Book
+) : Transaction(transactionId, member, book) {
     override fun execute() {
         member.returnBook(book)
     }
 }
 
-fun main(){
-    var library1 = Library("Perpus")
-    var book1 = Book("Laskar Pelangi", "Andrea Hirata", "123456")
-    var member1 = Member("Budi")
+fun main() {
     
-    library1.addBook(book1)
-    
-    println(library1.findBookByTitle("Laskar Pelangi"))
-    
-    var transaction1 = TransactionBorrow("TR001", member1, book1)
-    transaction1.execute()
-    book1.isAvail()
-    
-    var transaction2 = TransactionReturn("TR002", member1, book1)
-    transaction2.execute()
-    book1.isAvail()
 }
